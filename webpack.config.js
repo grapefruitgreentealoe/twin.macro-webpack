@@ -20,6 +20,28 @@ module.exports = function webpackConfig(env, args) {
           loader: require.resolve('babel-loader'),
           // See .babelrc for further babel config
         },
+        {
+          test: /\.css$/i,
+          use: [
+            "style-loader",
+            "css-loader",
+            {
+              loader: "postcss-loader",
+              options: {
+                postcssOptions: {
+                  plugins: [
+                    [
+                      "postcss-preset-env",
+                      {
+                        // Options
+                      },
+                    ],
+                  ],
+                },
+              },
+            },
+          ]
+        },
       ],
     },
     optimization: {
