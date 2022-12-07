@@ -1,5 +1,10 @@
+const webpack = require('webpack')
+const dotenv = require('dotenv')
 const path = require('path')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+
+// this will update the process.env with environment variables in .env file
+dotenv.config();
 
 module.exports = function webpackConfig(env, args) {
   return {
@@ -55,5 +60,10 @@ module.exports = function webpackConfig(env, args) {
       open: true,
       static: { directory: path.join(__dirname, 'public') },
     },
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env': JSON.stringify(process.env),
+      })
+    ]
   }
 }
